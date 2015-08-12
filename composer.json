@@ -1,0 +1,28 @@
+{
+  "name": "kelunik/chat-services",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Niklas Keller",
+      "email": "me@kelunik.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/kelunik/chat-services/issues"
+  },
+  "require": {
+    "amphp/amp": "^1",
+    "amphp/artax": "^2",
+    "justinrainbow/json-schema": "^1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.7",
+    "fabpot/php-cs-fixer": "^1.9"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Kelunik\\Chat\\Integration\\": "src/"
+    }
+  }
+}
