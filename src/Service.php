@@ -76,7 +76,7 @@ abstract class Service {
      */
     public function submitMessage (int $roomId, string $text, string $icon): Promise {
         $request = (new Request)
-            ->setUri("http://api.localhost:3032/messages")
+            ->setUri(getenv("API_HOST") . "/messages")
             ->setMethod("PUT")
             ->setHeader("content-type", "application/json")
             ->setBody(json_encode([
