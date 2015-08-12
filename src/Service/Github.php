@@ -12,7 +12,7 @@ class Github extends Service {
         "ping" => true,
     ];
 
-    public function handle (int $roomId, array $headers, array $payload): Promise {
+    public function handle (int $roomId, array $headers, $payload): Promise {
         $event = $this->getEvent($headers);
 
         if (isset($this->events[$event])) {
@@ -22,8 +22,8 @@ class Github extends Service {
         }
     }
 
-    public function ping (int $roomId, array $payload) {
-        return $this->submitMessage($roomId, "_\"" . $payload["zen"] . "\"_", "github");
+    public function ping (int $roomId, $payload) {
+        return $this->submitMessage($roomId, "_\"" . $payload->zen . "\"_", "github");
     }
 
     protected function getEvent (array $headers) {

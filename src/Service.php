@@ -30,10 +30,10 @@ abstract class Service {
      *
      * @param int $roomId
      * @param array $header
-     * @param array $payload
+     * @param mixed $payload
      * @return mixed
      */
-    abstract public function handle (int $roomId, array $header, array $payload);
+    abstract public function handle (int $roomId, array $header, $payload);
 
     /**
      * Adds a JSON schema to validate against.
@@ -49,10 +49,10 @@ abstract class Service {
      * Checks if a given payload is valid and safe to "handle".
      *
      * @param array $headers
-     * @param array $payload
+     * @param mixed $payload
      * @return bool
      */
-    public function isValid (array $headers, array $payload): bool {
+    public function isValid (array $headers, $payload): bool {
         $event = $this->getEvent($headers);
 
         if (!isset($this->schema[$event])) {
