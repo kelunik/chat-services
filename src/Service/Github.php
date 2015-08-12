@@ -16,7 +16,7 @@ class Github extends Service {
         $event = $this->getEvent($headers);
 
         if (isset($this->events[$event])) {
-            return coroutine([$this, $event]);
+            return (coroutine([$this, $event]))($roomId, $payload);
         } else {
             return new Success("no action");
         }
