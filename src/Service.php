@@ -79,6 +79,7 @@ abstract class Service {
             ->setUri(getenv("API_HOST") . "/messages")
             ->setMethod("PUT")
             ->setHeader("content-type", "application/json")
+            ->setHeader("authentication", "token " . getenv("API_TOKEN"))
             ->setBody(json_encode([
                 "room_id" => $roomId,
                 "text" => $text,
