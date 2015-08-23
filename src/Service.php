@@ -37,7 +37,7 @@ abstract class Service {
         if (!$this->name) {
             $name = (new ReflectionClass($this))->getShortName();
             $name = preg_replace("~([A-Z])~", "-\\1", $name);
-            $name = strtolower($name);
+            $name = strtolower(substr($name, 1));
 
             $this->name = $name;
         }

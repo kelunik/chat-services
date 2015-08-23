@@ -11,7 +11,7 @@ class Github extends Service {
     ];
 
     public function handle(array $headers, $payload) {
-        $event = $this->getEvent($headers);
+        $event = $this->getEventName($headers, $payload);
 
         if (isset($this->events[$event])) {
             return $this->$event($payload);
@@ -24,7 +24,7 @@ class Github extends Service {
         return new Message("_\"" . $payload->zen . "\"_");
     }
 
-    protected function getEvent(array $headers, $payload) {
+    public function getEventName(array $headers, $payload): string {
         list($header) = $headers["x-github-event"] ?? [""];
 
         return strtolower($header);
