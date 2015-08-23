@@ -2,20 +2,16 @@
 
 namespace Kelunik\Chat\Integration\Service;
 
-use Amp\Promise;
+use Kelunik\Chat\Integration\Message;
 use Kelunik\Chat\Integration\Service;
 
 class Coveralls extends Service {
-    public function handle (int $roomId, array $headers, $payload): Promise {
+    public function handle(array $headers, $payload) {
         $author = $payload->committer_name;
-        $coverageTotal = round((float) $payload->coverage_percent, 1);
-        $coverageChange = round((float) $payload->coverage_change, 1);
+        $coverageTotal = round($payload->coverage_percent, 1);
+        $coverageChange = round($payload->coverage_change, 1);
         $repository = $payload->repo_name;
         $url = $payload->url;
-
-        if (abs($coverageChange) < 0.001) {
-            return "Aborting... no coverage change!";
-        }
 
         $message = "%s %s [code coverage for `%s`](%s) by %f% to %f%.";
         $message = sprintf(
@@ -28,7 +24,12 @@ class Coveralls extends Service {
             $coverageTotal
         );
 
-        $icon = $coverageChange < 0 ? "std_green" : "std_red";
-        return $this->submitMessage($roomId, $message, $icon);
+        return new Message($message, [
+            "author" => $author,
+            "change" => $coverageChange,
+            "total" => $coverageTotal,
+            "repository" => $repository,
+            "url" => $url,
+        ]);
     }
 }

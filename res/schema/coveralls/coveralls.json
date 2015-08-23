@@ -44,7 +44,7 @@
       "type": "string"
     }
   },
-  "additionalProperties": false,
+  "additionalProperties": true,
   "required": [
     "badge_url",
     "branch",

@@ -2,32 +2,31 @@
 
 namespace Kelunik\Chat\Integration\Service;
 
-use Amp\Promise;
-use Amp\Success;
+use Kelunik\Chat\Integration\Message;
 use Kelunik\Chat\Integration\Service;
-use function Amp\coroutine;
 
 class Github extends Service {
     private $events = [
         "ping" => true,
     ];
 
-    public function handle (int $roomId, array $headers, $payload): Promise {
+    public function handle(array $headers, $payload) {
         $event = $this->getEvent($headers);
 
         if (isset($this->events[$event])) {
-            return (coroutine([$this, $event]))($roomId, $payload);
+            return $this->$event($payload);
         } else {
-            return new Success("no action");
+            return null;
         }
     }
 
-    public function ping (int $roomId, $payload) {
-        return $this->submitMessage($roomId, "_\"" . $payload->zen . "\"_", "github");
+    public function ping($payload) {
+        return new Message("_\"" . $payload->zen . "\"_");
     }
 
-    protected function getEvent (array $headers) {
+    protected function getEvent(array $headers, $payload) {
         list($header) = $headers["x-github-event"] ?? [""];
+
         return strtolower($header);
     }
 }
