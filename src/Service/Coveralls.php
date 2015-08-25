@@ -8,16 +8,16 @@ use Kelunik\Chat\Integration\Service;
 class Coveralls extends Service {
     public function handle(array $headers, $payload) {
         $author = $payload->committer_name;
-        $coverageTotal = round($payload->coverage_percent, 1);
+        $coverageTotal = round($payload->covered_percent, 1);
         $coverageChange = round($payload->coverage_change, 1);
         $repository = $payload->repo_name;
         $url = $payload->url;
 
-        $message = "%s %s [code coverage for `%s`](%s) by %f% to %f%.";
+        $message = "%s %s [code coverage for `%s`](%s) by %s%% to %s%%.";
         $message = sprintf(
             $message,
             $author,
-            $coverageChange < 0 ? "improved" : "worsened",
+            $coverageChange > 0 ? "improved" : "worsened",
             $repository,
             $url,
             abs($coverageChange),
