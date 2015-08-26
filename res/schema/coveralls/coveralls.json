@@ -29,7 +29,7 @@
     },
     "covered_percent": {
       "id": "covered_percent",
-      "type": "float"
+      "type": "number"
     },
     "commit_message": {
       "id": "commit_message",
@@ -37,7 +37,7 @@
     },
     "coverage_change": {
       "id": "coverage_change",
-      "type": "float"
+      "type": "number"
     },
     "url": {
       "id": "url",
